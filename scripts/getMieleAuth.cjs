@@ -1,11 +1,6 @@
 const createApplication = require('./authServer.cjs');
 const { AuthorizationCode } = require('simple-oauth2');
-
-const mieleConsts = {
-  mieleClientId: 'c42f04e7-3b88-4bf3-b926-3fe83e29ea5e',
-  mieleSecretId: '4ps4fMNljCXyoB8VCPQQSz0RCprdo5BU',
-  mieleAppliances: [ "000150142470", "000125845456" ],
-}
+const { mieleConsts } = require('../config');
 
 createApplication(({ app, callbackUrl }) => {
   const client = new AuthorizationCode({

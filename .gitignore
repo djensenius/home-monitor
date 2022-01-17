@@ -24,3 +24,11 @@ yarn-error.log*
 ./tokens/*.json
 ./config.js
 ./status/*.json
+/config.js
+/status/000125845456.json
+/status/000150142470.json
+/status/BOSCH-SHE88PZ65N-68A40E0E6839.json
+/status/BroomBot.json
+/status/MopBot.json
+/tokens/homeconnect.json
+/tokens/miele.json
