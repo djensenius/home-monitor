@@ -1,0 +1,15 @@
+.iconContainer {
+  padding-top: 1rem;
+}
+
+.icon {
+  height: 7rem;
+  padding: 0;
+  margin: 0;
+}
+
+.status {
+  padding-top: 0;
+  padding-bottom: 1rem;
+  margin: 0;
+}
