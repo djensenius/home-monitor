@@ -32,3 +32,4 @@ yarn-error.log*
 /status/MopBot.json
 /tokens/homeconnect.json
 /tokens/miele.json
+/public/screenshot.png

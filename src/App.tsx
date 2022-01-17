@@ -9,7 +9,7 @@ import {
   openWeatherMapConsts,
   robotConsts,
 } from './config.js';
-import { mieleToTimeLeft } from './helpers';
+import { homeConnectToTimeLeft, mieleToTimeLeft } from './helpers';
 import ApplianceView, { Appliance } from './Appliance';
 import MainWeather from './MainWeather';
 import MiniWeather from './MiniWeather';
@@ -50,6 +50,24 @@ export const App = () => {
             name: 'Dishwasher',
           }
         } else {
+          appliance['dishwasher'] = {
+            icon: 'dishwasher.svg',
+            on: true,
+            name: 'Dishwasher',
+          }
+          let program = result.data.key;
+          if (program === 'Dishcare.Dishwasher.Program.Auto2') {
+            program = 'Auto';
+          }
+          appliance['dishwasher'].program = program;
+          for (let j = 0; j < result.data.options.length; j += 1) {
+            const option = result.data.options[j];
+            if (option.key === 'BSH.Common.Option.RemainingProgramTime') {
+              const seconds = option.value;
+              const timeRemaining = homeConnectToTimeLeft(seconds);
+              appliance['dishwasher'].timeRemaining = timeRemaining
+            }
+          }
         }
       } else {
         let name = 'washer';
