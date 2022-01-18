@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import { Forecast } from 'owm-onecall-api';
 import { kToC, isNight } from './helpers';
 import 'weather-react-icons/lib/css/weather-icons.css';
+import 'weather-react-icons/lib/css/weather-icons-wind.css';
 import { WeatherIcon } from 'weather-react-icons';
 
 interface MainWeatherProps {
@@ -12,6 +13,9 @@ interface MainWeatherProps {
 }
 
 export default class MainWeather extends React.Component<MainWeatherProps> {
+  getWindClass = (degree: number): string => {
+    return `wi wi-wind from-${degree}-deg`;
+  }
   render() {
     const weatherData = this.props.weatherData;
     if (weatherData?.current) {
@@ -34,32 +38,49 @@ export default class MainWeather extends React.Component<MainWeatherProps> {
             </Grid>
             <Grid container sx={{textAlign: 'left', paddingLeft: '2rem'}}>
               <Grid item xs>
-                ⬆ {weatherData.daily && kToC(weatherData.daily[0].temp.max)}°
+                <i className='wi wi-direction-up'></i>
+                {' '}
+                {weatherData.daily && kToC(weatherData.daily[0].temp.max)}°
               </Grid>
               <Grid item xs>
-                Feels like: {kToC(weatherData.current.feels_like)}°
+                Feels: {kToC(weatherData.current.feels_like)}°
               </Grid>
               <Grid item xs>
-                Sunrise: {new Date(weatherData.current.sunrise).toLocaleTimeString()}
-              </Grid>
-            </Grid>
-            <Grid container sx={{textAlign: 'left', paddingLeft: '2rem'}}>
-              <Grid item xs>
-                ⬇ {weatherData.daily && kToC(weatherData.daily[0].temp.min)}°
-              </Grid>
-              <Grid item xs>
-              Humidity: {weatherData.current.humidity}%
-              </Grid>
-              <Grid item xs>
-                Sunset: {new Date(weatherData.current.sunset).toLocaleTimeString()}
+                <i className="wi wi-sunrise"></i>
+                {' '}
+                {new Date(weatherData.current.sunrise).toLocaleTimeString([], {timeStyle: 'short'})}
               </Grid>
             </Grid>
             <Grid container sx={{textAlign: 'left', paddingLeft: '2rem'}}>
               <Grid item xs>
-                Wind Speed: {(weatherData.current.wind_speed * 3.6).toFixed(1)} km/h
+                <i className='wi wi-direction-down'></i>
+                {' '}
+                {weatherData.daily && kToC(weatherData.daily[0].temp.min)}°
               </Grid>
               <Grid item xs>
-                Wind Gust: {(weatherData.current.wind_speed * 3.6).toFixed(1)} km/h
+              {weatherData.current.humidity}
+              {' '}
+              <i className="wi wi-humidity"></i>
+              </Grid>
+              <Grid item xs>
+                <i className="wi wi-sunset"></i>
+                {' '}
+                {new Date(weatherData.current.sunset).toLocaleTimeString([], {timeStyle: 'short'})}
+              </Grid>
+            </Grid>
+            <Grid container sx={{textAlign: 'left', paddingLeft: '2rem'}}>
+              <Grid item xs>
+              <i className={this.getWindClass(weatherData.current.wind_deg)}></i>
+                {' '}
+                {(weatherData.current.wind_speed * 3.6).toFixed(1)} km/h
+              </Grid>
+              <Grid item xs>
+                {weatherData.current.rain && (
+                  <i className='wi wi-raindrop'></i>
+                )}
+                {weatherData.current.snow && (
+                  <i className='wi wi-snowflake-cold'></i>
+                )}
               </Grid>
               <Grid item xs>
                 {weatherData.alerts && (

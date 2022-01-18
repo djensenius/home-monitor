@@ -13,6 +13,7 @@ import { homeConnectToTimeLeft, mieleToTimeLeft } from './helpers';
 import ApplianceView, { Appliance } from './Appliance';
 import MainWeather from './MainWeather';
 import MiniWeather from './MiniWeather';
+import News from './News';
 import './App.css';
 
 const owm = buildOpenWeatherMapRequest(openWeatherMapConsts.apiKey, openWeatherMapConsts.latitude, openWeatherMapConsts.longitude);
@@ -219,6 +220,7 @@ export const App = () => {
           </Grid>
         </Grid>
         <Divider flexItem />
+        <News />
       </Box>
     </div>
   );
