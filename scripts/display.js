@@ -54,7 +54,7 @@ const displayImage = async () => {
     IMAGE_ROTATION.ROTATE_180,
     ENDIANNESS.BIG
   );
-    
+
   screen.displayArea( // Display from image buffer
     0, // Top corner
     0, // Left corner
@@ -66,8 +66,7 @@ const displayImage = async () => {
   screen.sleep(); // Put display to sleep
 }
 
-console.log('Going to screenshot');
-await captureScreenshot();
-console.log('Going to display?!?');
-await displayImage();
-console.log('Done display');
+setInterval(async() => {
+  await captureScreenshot();
+  await displayImage();
+}, 30000);

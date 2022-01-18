@@ -17,15 +17,16 @@ export default class MainWeather extends React.Component<MiniWeatherProps> {
         <Grid container direction="column">
           <Grid container>
             <Grid item xs>
-              <h3>
+              <p>
                 <WeatherIcon iconId={weatherData.weather[0].id} name="owm" />
                 {' '}
                 {new Date(weatherData.sunrise * 1000).toLocaleString([], {weekday: 'long'})}
                 {' '}
-                ⬆ {kToC(weatherData.temp.max)}°
+                {kToC(weatherData.temp.max)}°
                 {' '}
-                ⬇ {kToC(weatherData.temp.min)}°
-              </h3>
+                {' '}
+                {kToC(weatherData.temp.min)}°
+              </p>
             </Grid>
           </Grid>
         </Grid>

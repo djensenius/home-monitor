@@ -4,6 +4,7 @@ import HomeConnect from './homeconnect.js';
 import Miele from './miele.js';
 import { mieleConsts, homeConnectConsts, robotConsts } from '../config.js';
 import * as dorita980 from 'dorita980';
+import RSS from 'rss-to-json';
 
 if (fs.existsSync('./tokens/homeconnect.json')) {
   let fileContents = await JSON.parse(fs.readFileSync('./tokens/homeconnect.json'));
@@ -85,3 +86,12 @@ setInterval(async () => {
     });
   }
 }, 15000);
+
+setInterval(async () => {
+  const feed = await RSS.parse('https://www.cbc.ca/cmlink/rss-topstories', {});
+  fs.writeFile('./status/cbc.json', JSON.stringify(feed), (err) => {
+    if (err) {
+      console.log('Bad news day');
+    }
+  });
+}, 600000);
