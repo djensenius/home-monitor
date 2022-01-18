@@ -26,6 +26,7 @@
     "react-scripts": "5.0.0",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
+    "sharp": "^0.29.3",
     "simple-oauth2": "^4.3.0",
     "typescript": "^4.5.4",
     "weather-react-icons": "^4.0.2",
