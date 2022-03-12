@@ -14,13 +14,19 @@ if (fs.existsSync('./tokens/homeconnect.json')) {
 const getHomeConnectStatus = async (homeConnect, id) => {
   const url = `https://api.home-connect.com/api/homeappliances/${id}/programs/active`;
   const bearer = homeConnect.getAuthorisation();
-  const response = await fetch(url, {
-    method: 'get',
-    headers: {
-      'Accept': 'application/vnd.bsh.sdk.v1+json',
-      'Authorization': bearer,
-    }
-  });
+  let response;
+  try {
+    response = await fetch(url, {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.bsh.sdk.v1+json',
+        'Authorization': bearer,
+      }
+    });
+  } catch(error) {
+    console.error(`Failed to fetch result ${error}`);
+    return JSON.encode({"error": {}});
+  }
   return await response.json();
 };
 
@@ -39,7 +45,7 @@ const getRobotStatus = async(blid, password, ip, name) => {
     }
     robot.getRobotState(['batPct', 'cleanMissionStatus']).then((result) => {
       robot.end();
-      fs.writeFile(`./status/${name}.json`, JSON.stringify(result), (err) => {
+      fs.writeFile(`./build/status/${name}.json`, JSON.stringify(result), (err) => {
         if (err) {
           console.error(`Error ${err.msg}`);
         }
@@ -61,14 +67,14 @@ let homeConnectResponse;
 setInterval(async () => {
   homeConnectResponse = await getHomeConnectStatus(homeConnect, homeConnectConsts.appliances[0]);
   homeConnectResponse.lastUpdated = new Date();
-  fs.writeFile(`./status/${homeConnectConsts.appliances[0]}.json`, JSON.stringify(homeConnectResponse), (err) => {
+  fs.writeFile(`./build/status/${homeConnectConsts.appliances[0]}.json`, JSON.stringify(homeConnectResponse), (err) => {
     if (err) {
       console.error(err);
     } else {
       console.log('Wrote HomeConnect');
     }
   });
-}, 15000);
+}, 120000);
 
 const miele = new Miele();
 
@@ -77,7 +83,7 @@ setInterval(async () => {
     let appliance = mieleConsts.appliances[i];
     let mieleResponse = await miele.updateAppliance(appliance);
     mieleResponse.lastUpdated = new Date();
-    fs.writeFile(`./status/${appliance}.json`, JSON.stringify(mieleResponse), (err) => {
+    fs.writeFile(`./build/status/${appliance}.json`, JSON.stringify(mieleResponse), (err) => {
       if (err) {
         console.error(err);
       } else {
@@ -85,11 +91,11 @@ setInterval(async () => {
       }
     });
   }
-}, 15000);
+}, 120000);
 
 setInterval(async () => {
   const feed = await RSS.parse('https://www.cbc.ca/cmlink/rss-topstories', {});
-  fs.writeFile('./status/cbc.json', JSON.stringify(feed), (err) => {
+  fs.writeFile('./build/status/cbc.json', JSON.stringify(feed), (err) => {
     if (err) {
       console.log('Bad news day');
     }

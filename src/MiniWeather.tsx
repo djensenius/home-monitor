@@ -24,6 +24,7 @@ export default class MainWeather extends React.Component<MiniWeatherProps> {
                 {' '}
                 {kToC(weatherData.temp.max)}°
                 {' '}
+                |
                 {' '}
                 {kToC(weatherData.temp.min)}°
               </p>

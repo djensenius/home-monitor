@@ -19,6 +19,7 @@
     "events": "^3.3.0",
     "feed-reader": "^5.0.0-rc2",
     "it8951": "^0.1.1",
+    "md5": "^2.3.0",
     "node-fetch": "^3.1.0",
     "owm-onecall-api": "^1.2.0",
     "puppeteer": "^13.1.0",

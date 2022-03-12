@@ -23,7 +23,7 @@ export default class MainWeather extends React.Component<MainWeatherProps> {
         <Box sx={{ flexGrow: 1 }}>
           <Grid container direction="column">
             <Grid container>
-              <Grid item xs>
+              <Grid item xs sx={{paddingLeft: '1rem'}}>
                 <h1>
                   {this.props.localTime}
                 </h1>
@@ -31,7 +31,10 @@ export default class MainWeather extends React.Component<MainWeatherProps> {
               <Grid item xs>
                 <h1>
                   <WeatherIcon iconId={weatherData.current.weather[0].id} name="owm" night={isNight(weatherData)} />
-                  {' '}
+                </h1>
+              </Grid>
+              <Grid item xs>
+                <h1>
                   {kToC(weatherData.current.temp)}°
                 </h1>
               </Grid>

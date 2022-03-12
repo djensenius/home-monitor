@@ -16,7 +16,7 @@ export const News = () => {
     const headlines = theNews.items.map((newsItem: NewsItem) => {
       return newsItem.title;
     });
-    setNews(headlines.slice(0, 3));
+    setNews(headlines.slice(0, 2));
   };
 
   React.useEffect(() => {

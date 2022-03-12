@@ -142,7 +142,7 @@ export const App = () => {
         }
       }
       if (result.batPct < 100) {
-        myRobots[name].program += ` (${result.batPct})`
+        myRobots[name].program += ` (${result.batPct}%)`
       }
     }
     setRobots(myRobots);
